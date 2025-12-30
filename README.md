@@ -23,9 +23,13 @@ A progressive tutorial that demystifies AI coding agents like Claude Code, Curso
 ## Quick Start
 
 ```bash
-pip install anthropic
+pip install anthropic python-dotenv
 
-# Edit any file to set your API key, then:
+# Configure your API
+cp .env.example .env
+# Edit .env with your API key
+
+# Run any version
 python v0_bash_agent.py  # Minimal
 python v1_basic_agent.py # Core agent loop
 python v2_todo_agent.py  # + Todo planning
@@ -58,9 +62,36 @@ mini-claude-code/
 ├── v2_todo_agent.py       # ~300 lines: + TodoManager
 ├── v3_subagent.py         # ~450 lines: + Task tool, agent registry
 ├── v4_skills_agent.py     # ~550 lines: + Skill tool, SkillLoader
-├── skills/                # Example skills (pdf, mcp-builder, code-review)
+├── skills/                # Example skills (for learning)
+│   ├── agent-builder/     # Meta-skill: teaches how to build agents
+│   ├── pdf/               # PDF processing
+│   ├── mcp-builder/       # MCP server creation
+│   └── code-review/       # Code review expertise
 └── docs/                  # Detailed explanations (EN + ZH)
 ```
+
+## Using the Agent Builder Skill
+
+This repository includes a meta-skill that teaches agents how to build agents:
+
+```bash
+# Scaffold a new agent project
+python skills/agent-builder/scripts/init_agent.py my-agent
+
+# Or with specific complexity level
+python skills/agent-builder/scripts/init_agent.py my-agent --level 0  # Minimal
+python skills/agent-builder/scripts/init_agent.py my-agent --level 1  # 4 tools (default)
+```
+
+### Installing as a Claude Code Plugin
+
+For production use, install skills from our dedicated skills repository:
+
+```bash
+claude plugins install https://github.com/shareAI-lab/shareAI-skills
+```
+
+See [shareAI-skills](https://github.com/shareAI-lab/shareAI-skills) for the full collection of skills.
 
 ## Key Concepts
 
@@ -94,6 +125,24 @@ SKILL.md files provide domain expertise on-demand. Knowledge as a first-class ci
 **Original articles (articles/) - Chinese only, social media style:**
 - [v0文章](./articles/v0文章.md) | [v1文章](./articles/v1文章.md) | [v2文章](./articles/v2文章.md) | [v3文章](./articles/v3文章.md) | [v4文章](./articles/v4文章.md)
 - [上下文缓存经济学](./articles/上下文缓存经济学.md) - Context Caching Economics for Agent Developers
+
+## Related Projects
+
+| Repository | Purpose |
+|------------|---------|
+| [shareAI-skills](https://github.com/shareAI-lab/shareAI-skills) | Production-ready skills for AI agents |
+| [Agent Skills Spec](https://github.com/anthropics/agent-skills) | Official specification |
+
+### Use as Template
+
+Fork and customize for your own agent projects:
+
+```bash
+git clone https://github.com/shareAI-lab/mini-claude-code
+cd mini-claude-code
+# Start from any version level
+cp v1_basic_agent.py my_agent.py
+```
 
 ## Production Version
 

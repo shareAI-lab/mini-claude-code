@@ -1,6 +1,6 @@
 # Mini Claude Code
 
-**从零开始构建你自己的编程 Agent。**
+**从零开始构建你自己的 AI Agent。**
 
 [English](./README.md)
 
@@ -8,7 +8,7 @@
 
 ## 这是什么？
 
-一个渐进式教程，揭开 Claude Code、Cursor Agent、Codex CLI 等 AI 编程 Agent 的神秘面纱。
+一个渐进式教程，揭开 Claude Code、Cursor Agent、Codex CLI 等 AI Agent 的神秘面纱。
 
 **5 个版本，总共约 1100 行，每个版本只添加一个概念：**
 
@@ -23,9 +23,13 @@
 ## 快速开始
 
 ```bash
-pip install anthropic
+pip install anthropic python-dotenv
 
-# 编辑任意文件设置 API key，然后：
+# 配置 API
+cp .env.example .env
+# 编辑 .env 填入你的 API key
+
+# 运行任意版本
 python v0_bash_agent.py  # 极简版
 python v1_basic_agent.py # 核心 Agent 循环
 python v2_todo_agent.py  # + Todo 规划
@@ -35,7 +39,7 @@ python v4_skills_agent.py # + Skills
 
 ## 核心模式
 
-每个编程 Agent 都只是这个循环：
+每个 Agent 都只是这个循环：
 
 ```python
 while True:
@@ -58,9 +62,36 @@ mini-claude-code/
 ├── v2_todo_agent.py       # ~300 行: + TodoManager
 ├── v3_subagent.py         # ~450 行: + Task 工具，代理注册表
 ├── v4_skills_agent.py     # ~550 行: + Skill 工具，SkillLoader
-├── skills/                # 示例 Skills (pdf, mcp-builder, code-review)
+├── skills/                # 示例 Skills（用于学习）
+│   ├── agent-builder/     # 元技能：教 Agent 如何构建 Agent
+│   ├── pdf/               # PDF 处理
+│   ├── mcp-builder/       # MCP 服务器创建
+│   └── code-review/       # 代码审查专业知识
 └── docs/                  # 详细文档 (中英双语)
 ```
+
+## 使用 Agent Builder Skill
+
+本仓库包含一个元技能，教 Agent 如何构建 Agent：
+
+```bash
+# 脚手架生成新 Agent 项目
+python skills/agent-builder/scripts/init_agent.py my-agent
+
+# 或指定复杂度级别
+python skills/agent-builder/scripts/init_agent.py my-agent --level 0  # 极简
+python skills/agent-builder/scripts/init_agent.py my-agent --level 1  # 4 工具 (默认)
+```
+
+### 作为 Claude Code 插件安装
+
+生产环境请从我们专门的 skills 仓库安装：
+
+```bash
+claude plugins install https://github.com/shareAI-lab/shareAI-skills
+```
+
+详见 [shareAI-skills](https://github.com/shareAI-lab/shareAI-skills) 获取完整的 skills 集合。
 
 ## 核心概念
 
@@ -94,6 +125,24 @@ SKILL.md 文件按需提供领域专业知识。知识作为一等公民。
 **原创文章 (articles/) - 公众号风格:**
 - [v0文章](./articles/v0文章.md) | [v1文章](./articles/v1文章.md) | [v2文章](./articles/v2文章.md) | [v3文章](./articles/v3文章.md) | [v4文章](./articles/v4文章.md)
 - [上下文缓存经济学](./articles/上下文缓存经济学.md) - Agent 开发者必知的成本优化指南
+
+## 相关项目
+
+| 仓库 | 用途 |
+|------|------|
+| [shareAI-skills](https://github.com/shareAI-lab/shareAI-skills) | 生产就绪的 AI Agent Skills |
+| [Agent Skills Spec](https://github.com/anthropics/agent-skills) | 官方规范 |
+
+### 作为模板
+
+Fork 并自定义为你自己的 Agent 项目：
+
+```bash
+git clone https://github.com/shareAI-lab/mini-claude-code
+cd mini-claude-code
+# 从任意版本级别开始
+cp v1_basic_agent.py my_agent.py
+```
 
 ## 生产版本
 
